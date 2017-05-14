@@ -47,3 +47,4 @@ puts "p5 = #{p5}"
 puts "p4 = #{p4}"
 puts p4.dot3(p5)
 puts p4.dot2(p5, V4Mask::X, V4Mask::Z)
+puts V4.tripleProd(p2, p3, p4)

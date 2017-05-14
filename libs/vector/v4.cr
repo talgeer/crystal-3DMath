@@ -119,6 +119,12 @@ class V4
     return result
   end
 
+  # Triple product on V3
+  def self.tripleProd(v1 : V4, v2 : V4, v3 : V4)
+    result = (v1*v2).dot3(v3)
+    return result
+  end
+
   def to_s(io)
     io << "[" << x << "," << y << "," << z << "," << w << "]"
   end
