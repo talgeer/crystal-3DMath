@@ -1,9 +1,9 @@
 require "../libs/vector/v4.cr"
 
 p1 = V4.new 0.0, 0.0, 0.0, 0.0
-p2 = V4.new x:1.0
-p3 = V4.new y:1.0
-p4 = V4.new z:1.0
+p2 = V4.new x: 1.0
+p3 = V4.new y: 1.0
+p4 = V4.new z: 1.0
 
 puts "p1 :       #{p1}"
 puts "p2 :       #{p2}"
@@ -30,3 +30,16 @@ puts "p5.x #{p5.x}  #{p5.get(V4Mask::X)}"
 puts "p5.y #{p5.y}  #{p5.get(V4Mask::Y)}"
 puts "p5.z #{p5.z}  #{p5.get(V4Mask::Z)}"
 puts "p5.w #{p5.w}  #{p5.get(V4Mask::W)}"
+
+p6 = V4.new(p5)
+puts "p6 #{p6}"
+puts p5.x
+puts p5.y
+puts p5.z
+puts p5.w
+
+puts p5*3
+puts p5.scale(3)
+puts p5
+puts p6 == p5
+puts p6*p3
