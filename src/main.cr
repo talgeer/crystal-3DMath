@@ -43,3 +43,7 @@ puts p5.scale(3)
 puts p5
 puts p6 == p5
 puts p6*p3
+puts "p5 = #{p5}"
+puts "p4 = #{p4}"
+puts p4.dot3(p5)
+puts p4.dot2(p5, V4Mask::X, V4Mask::Z)

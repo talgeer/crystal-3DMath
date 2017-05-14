@@ -92,12 +92,31 @@ class V4
     V4.new @data[mask[0].value], @data[mask[1].value], @data[mask[2].value], @data[mask[3].value]
   end
 
+  # Cross product
   def *(v : V4)
     vResult = V4.new
     vResult.x ((self.y * v.z) - (self.z * v.y))
     vResult.y ((self.z * v.x) - (self.x * v.z))
     vResult.z ((self.x * v.y) - (self.y * v.x))
     return vResult
+  end
+
+  # Dot product on V3
+  def dot3(v : V4)
+    vResult = V4.new
+    a = self.x * v.x
+    b = self.y * v.y
+    c = self.z * v.z
+    result = a + b + c
+    return result
+  end
+
+  # Dot product on V2
+  def dot2(v : V4, coord1 = V4Mask::X, coord2 = V4Mask::Y)
+    a = self.get(coord1)*v.get(coord1)
+    b = self.get(coord2)*v.get(coord2)
+    result = a + b
+    return result
   end
 
   def to_s(io)
