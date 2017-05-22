@@ -1,4 +1,4 @@
-require "./V4Coord.cr"
+require "./v4Coord.cr"
 require "../utils/macroAccessor.cr"
 
 class V4
