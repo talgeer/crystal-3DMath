@@ -1,6 +1,7 @@
 require "../libs/vector/v4.cr"
+require "../libs/vector/quat.cr"
 
-p1 = V4.new 0.0, 0.0, 0.0, 0.0
+p1 = V4.new 0.0, 0.0, 0.0
 p2 = V4.new x: 1.0
 p3 = V4.new y: 1.0
 p4 = V4.new z: 1.0
@@ -14,7 +15,7 @@ puts "p4 + p3 :  #{p2 + p3}"
 puts "p4 - p3 :  #{p4 - p3}"
 puts "p2 * 4 :   #{p2.scale(4.0)}"
 
-p2.set(1.0, 2.0, 3.0, 0.0)
+p2.set(1.0, 2.0, 3.0)
 puts "p2 modif : #{p2}"
 
 p2.x(7.7)
@@ -57,3 +58,23 @@ puts p7.reduce(swizzle(Z)) {|a| a * a}
 puts p7.reduce(swizzle(X)) {|a| a * a}
 puts p7.reduce(swizzle(X, X)) {|a| a * a}
 puts p7.reduce {|a| a * a}
+
+roll = 90.0 * (3.14159265358979323846 / 180.0)
+pitch = 0.0 * (3.14159265358979323846 / 180.0)
+yaw = 0.0 * (3.14159265358979323846 / 180.0)
+
+q = Quat.new
+q2 = Quat.fromEuler(roll, pitch, yaw)
+v = V4.new x=5.0, y=0.0, z=0.0
+
+puts q
+puts q2
+puts q * v
+puts q2 * v
+
+# TODO : check Q1 * Q2
+# TODO : check V4 normalized
+# TODO : check Q from direction
+# TODO : check Q' (conjugate)
+# TODO : check Q-1 (inverse)
+# TODO : define math const (PI, epsilon, i+-nf, ...)

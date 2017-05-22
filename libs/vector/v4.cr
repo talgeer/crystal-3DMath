@@ -3,18 +3,32 @@ require "../utils/macroAccessor.cr"
 
 class V4
 	@data = [0.0, 0.0, 0.0, 1.0]
+	@normalized = false
 
 	define_accessor(x, @data[0])
 	define_accessor(y, @data[1])
 	define_accessor(z, @data[2])
 	define_accessor(w, @data[3])
 
+	define_accessor(normalized, @normalized)
+
+	@@forward = V4.new(0.0, 0.0, 1.0)
+	@@left = V4.new(-1.0, 0.0, 0.0)
+	@@right = V4.new(1.0, 0.0, 0.0)
+	@@backward = V4.new(0.0, 0.0, -1.0)
+	@@up = V4.new(0.0, 1.0, 0.0)
+	@@down = V4.new(0.0, -1.0, 0.0)
+
+	def self.forward
+		@@forward
+	end
+
 	# constructor
-	def initialize(x = 0.0, y  = 0.0, z  = 0.0, w = 1.0)
+	def initialize(x = 0.0, y  = 0.0, z  = 0.0)
 		@data[0] = x
 		@data[1] = y
 		@data[2] = z
-		@data[3] = w
+		@normalized = false
 	end
 
 	# Constructor by copy
@@ -23,7 +37,7 @@ class V4
 	end
 
 	# set values one after another
-	def set(x, y, z, w)
+	def set(x, y, z, w = 1.0)
 		@data[0] = x
 		@data[1] = y
 		@data[2] = z
@@ -32,17 +46,17 @@ class V4
 
 	# addition operator
 	def +(other : V4)
-		V4.new(x + other.x, y + other.y, z + other.z, w + other.w)
+		V4.new(x + other.x, y + other.y, z + other.z)
 	end
 
 	# substraction operator
 	def -(other : V4)
-		V4.new(x - other.x, y - other.y, z - other.z, w - other.w)
+		V4.new(x - other.x, y - other.y, z - other.z)
 	end
 
 	# inverse operator
 	def -
-		V4.new(-x, -y, -z, -w)
+		V4.new(-x, -y, -z)
 	end
 
  	#equals boolean
@@ -67,7 +81,7 @@ class V4
 		@data[0] *= s
 		@data[1] *= s
 		@data[2] *= s
-		@data[3] *= s
+		@normalized = false
 	end
 
 	# set one value using V4Coord
@@ -90,6 +104,42 @@ class V4
 		values.each do |tuple|
 			tuple[1] = get(tuple[0])
 		end
+	end
+
+	def self.normalize(v : V4)
+		copy = v.clone
+
+		copy.normalize
+
+		return copy
+	end
+
+	def normalize
+		if @normalized == false
+			nn = sqrNorm()
+
+			if sqrN > 0.0
+				n = Math.sqrt(nn)
+
+				@data[0] /= n
+				@data[1] /= n
+				@data[2] /= n
+			end
+
+			@normalized = true
+		end
+	end
+
+	def isNormalized
+		@normalized
+	end
+	
+	def sqrNorm
+		x * x + y * y + z * z
+	end
+
+	def norm
+		Math.sqrt(sqrNorm)
 	end
 
 	# Cross product
@@ -121,6 +171,7 @@ class V4
 		destination.@data[1] = origin.@data[1]
 		destination.@data[2] = origin.@data[2]
 		destination.@data[3] = origin.@data[3]
+		destination.normalized = origin.normalized
 	end
 
 	def self.copy(swizzleMask, origin : V4, destination : V4)
@@ -134,7 +185,7 @@ class V4
 	end
 
 	def clone
-		V4.new x, y, z, w
+		V4.new x, y, z
 	end
 
 	def clone(swizzleMask)
