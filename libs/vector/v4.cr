@@ -23,6 +23,26 @@ class V4
 		@@forward
 	end
 
+	def self.backward
+		@@backward
+	end
+
+	def self.left
+		@@left
+	end
+
+	def self.right
+		@@right
+	end
+
+	def self.up
+		@@up
+	end
+
+	def self.down
+		@@down
+	end
+
 	# constructor
 	def initialize(x = 0.0, y  = 0.0, z  = 0.0)
 		@data[0] = x
