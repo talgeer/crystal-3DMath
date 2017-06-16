@@ -126,7 +126,7 @@ class Quat
   def *(other : Quat)
     normalize()
     other.normalize
-
+    # doesn't work, there is a ambiguity between a and other.a...
     Quat.new(
       a * other.a - b * other.b - c * other.c - d * other.d,
       a * other.b + b * other.a + c * other.d - d * other.c,

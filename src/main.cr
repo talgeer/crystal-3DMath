@@ -76,25 +76,40 @@ puts "--------"
 puts "triple product p2 p3 p4"
 puts V4.tripleProd(p2, p3, p4)
 
-puts p5.reduce {|a| a}
-puts p7.reduce(swizzle(W)) {|a| a * a}
-puts p7.reduce(swizzle(Z)) {|a| a * a}
-puts p7.reduce(swizzle(X)) {|a| a * a}
-puts p7.reduce(swizzle(X, X)) {|a| a * a}
-puts p7.reduce {|a| a * a}
+puts "_________________________________"
+puts "p5 reduce "
+puts p5.reduce { |a| a }
+puts "p7 reduce swizzle W "
+puts p7.reduce(swizzle(W)) { |a| a * a }
+puts "p7 reduce swizzle Z"
+puts p7.reduce(swizzle(Z)) { |a| a * a }
+puts "p7 reduce swizzle X"
+puts p7.reduce(swizzle(X)) { |a| a * a }
+puts "p7 reduce swizzle X,X"
+puts p7.reduce(swizzle(X, X)) { |a| a * a }
+puts "p7 reduce "
+puts p7.reduce { |a| a * a }
 
 roll = 90.0 * (3.14159265358979323846 / 180.0)
 pitch = 0.0 * (3.14159265358979323846 / 180.0)
 yaw = 0.0 * (3.14159265358979323846 / 180.0)
-
+puts "_______________________"
+puts "Quaternions"
+puts "-----------"
 q = Quat.new
 q2 = Quat.fromEuler(roll, pitch, yaw)
-v = V4.new x=5.0, y=0.0, z=0.0
+v = V4.new x = 5.0, y = 0.0, z = 0.0
 
+puts "q "
 puts q
+puts "q2"
 puts q2
+puts "q*v"
 puts q * v
+puts "q2*v"
 puts q2 * v
+
+# puts "q * q2 #{q * q2}"
 
 # TODO : check Q1 * Q2
 # TODO : check V4 normalized
